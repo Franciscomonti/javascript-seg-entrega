@@ -16,18 +16,18 @@ class Producto {
 
 const listaProductos = [];
 
-let prod1 = new Producto(1, "Zapatilla Nike", "MD500", "calzado", 25000, "nikeportada2.png")
+let prod1 = new Producto(1, "Zapatilla Nike", "MD500", "calzado", 25000.00, "nikeportada2.png")
 let prod2 = new Producto(2, "Remera Manga Larga", "RM5400", "remera", 3000.00, "remera-blanca-hombre-ml.jpg")
-let prod3 = new Producto(3, "Buzo Negro Capucha", "BC300", "buzo", 5000, "buzo-negro-capucha.webp")
+let prod3 = new Producto(3, "Buzo Negro Capucha", "BC300", "buzo", 5000.00, "buzo-negro-capucha.webp")
 let prod4 = new Producto(4, "Pantalon Cuadrille", "PC6000", "pantalon", 3000.00, "pantalon rojo.webp")
-let prod5 = new Producto(5, "Pantalon Cuadrille", "PC6000", "pantalon", 6000.00, "pantalon rojo.webp")
-let prod6 = new Producto(6, "Buzo Negro Capucha", "BC300", "buzo", 8000, "buzo-negro-capucha.webp")
-let prod7 = new Producto(7, "Zapatilla Nike", "MD500", "calzado", 25000, "nikeportada2.png")
-let prod8 = new Producto(8, "Remera Manga Larga", "RM5400", "remera", 3000.00, "remera-blanca-hombre-ml.jpg")
-let prod9 = new Producto(9, "Buzo Negro Capucha", "BC300", "buzo", 5000, "buzo-negro-capucha.webp")
-let prod10 = new Producto(10, "Pantalon Cuadrille", "PC6000", "pantalon", 3000.00, "pantalon rojo.webp")
-let prod11 = new Producto(11, "Pantalon Cuadrille", "PC6000", "pantalon", 6000.00, "pantalon rojo.webp")
-let prod12 = new Producto(12, "Buzo Negro Capucha", "BC300", "buzo", 8000, "buzo-negro-capucha.webp")
+let prod5 = new Producto(5, "Zapatilla Adidas MD", "AMD60", "calzado", 21000.00, "adidas md.png")
+let prod6 = new Producto(6, "Remera blanca imagen", "RBI300", "remera", 2500.00, "remera blanca img.png")
+let prod7 = new Producto(7, "Zapatilla Nike Air", "NA400", "calzado", 23000.00, "nike air.png")
+let prod8 = new Producto(8, "Remera Manga Corta", "RMC570", "remera", 2000.00, "remera-negra-hombre.webp")
+let prod9 = new Producto(9, "Buzo Negro", "B300", "buzo", 4500.00, "buzo-negro-hombre.webp")
+let prod10 = new Producto(10, "Pantalon Pampero", "PP600", "pantalon", 5000.00, "pantalon pampero.webp")
+let prod11 = new Producto(11, "Buzo Blanco Capucha", "BCB500", "buzo", 5200.00, "buzo-blanco-capucha.jpg")
+let prod12 = new Producto(12, "Chomba Hombre", "CH500", "remera", 4900.00, "chomba-blanca-hombre.jpg")
 
 listaProductos.push(prod1);
 listaProductos.push(prod2);
@@ -298,7 +298,7 @@ btnCloseModal.onclick = function () {
 
 // -------------------------------------------------FILTROS-------------------------------------------------------
 
-let filtrados = null
+let filtrados = listaProductos
 
 // filtro por tipo
 
@@ -418,7 +418,7 @@ function iniciarLocalStorageCarrito(){
 function main() {
     inciarLocalStorage()
     iniciarLocalStorageCarrito()
-    crearCardsMain(listaProductos)
+    crearCardsMain(filtrados)
 }
 
 main()
