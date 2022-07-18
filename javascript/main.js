@@ -1,5 +1,3 @@
-
-
 //Clases
 class Producto {
     constructor(id, nombre, codigo, tipo, precio, imagen) {
@@ -59,24 +57,9 @@ function crearCardsMain(productos) {
 }
 
 
-function includesFav(lista, producto) {
-    for (const fav of lista) {
-        if (fav.id == producto.id) {
-            return true
-        }
-    }
-
-    return false
-}
-
-
-//Insertar en el Html Main
-
 function crearCard(producto) {
-    let iconFav = "fav.svg"
-    if (includesFav(favoritos, producto)) {
-        iconFav = "fav black.svg"
-    }
+
+    let iconFav = includesFav(favoritos, producto) ? "fav black.svg" : "fav.svg";
 
     let cardCreada = `
         <div class="Productos-main-Card">
@@ -104,14 +87,10 @@ function crearCard(producto) {
 
 let carrito = []
 
-
 function manejarCarrito(id) {
-    if (estaEnCarrito(id)) {
-        eliminarCarrito(id)
-    } else {
-        agregarCarrito(id)
-    }
+    estaEnCarrito(id) ? eliminarCarrito(id) : agregarCarrito(id)
 }
+
 
 function estaEnCarrito(id) {
     for (let prod of carrito) {
@@ -143,7 +122,7 @@ function eliminarCarrito(id) {
     card.parentNode.removeChild(card)
 
     removerProductoLocalStorageCarrito()
-    
+
     almacenarProductosLocalStorageCarrito()
 
     contadorCarrito()
@@ -187,12 +166,19 @@ function contadorCarrito() {
 
 let favoritos = []
 
-function manejarFavs(id) {
-    if (estaEnFav(id)) {
-        eliminarFavorito(id)
-    } else {
-        agregarFavorito(id)
+function includesFav(lista, producto) {
+    for (const fav of lista) {
+        if (fav.id == producto.id) {
+            return true
+        }
     }
+
+    return false
+}
+
+
+function manejarFavs(id) {
+    estaEnFav(id) ? eliminarFavorito(id) : agregarFavorito(id)
 }
 
 function estaEnFav(id) {
@@ -206,14 +192,14 @@ function estaEnFav(id) {
 
 
 function agregarFavorito(id) {
-    
+
     let productoSelecFav = listaProductos.find(producto => producto.id == id)
     favoritos.push(productoSelecFav)
 
     document.getElementById(productoSelecFav.id).src = "./img/icon/fav black.svg";
     let cardFav = document.querySelector("#modal-contenedor");
     cardFav.innerHTML += crearCardFav(productoSelecFav);
-    
+
     almacenarProductosLocalStorage()
     contadorFavoritos()
 }
@@ -227,7 +213,7 @@ function eliminarFavorito(id) {
 
     let card = document.querySelector(`#fav-${id}`)
     card.parentNode.removeChild(card)
-    
+
     removerProductoLocalStorage()
     almacenarProductosLocalStorage()
     contadorFavoritos()
@@ -354,61 +340,52 @@ function filtroCostoMenor(element) {
 
 function almacenarProductosLocalStorage() {
     localStorage.setItem("localFavoritos", JSON.stringify(favoritos));
-    }
-
-function traerProductosLocalStorage(){
-    let storeList = localStorage.getItem("localFavoritos")
-    if(storeList == null){
-        localFavoritos = []
-
-    }else{
-        favoritos = JSON.parse(storeList)
-    }
 }
 
-function removerProductoLocalStorage(){
+function traerProductosLocalStorage() {
+    let storeList = localStorage.getItem("localFavoritos")
+    storeList == null ? localFavoritos = [] : favoritos = JSON.parse(storeList)
+}
+
+
+function removerProductoLocalStorage() {
     localStorage.removeItem("localFavoritos")
 }
 
-function pintarFavoritos(){
+function pintarFavoritos() {
     let cardFav = document.querySelector("#modal-contenedor");
-    favoritos.forEach((productos)=>cardFav.innerHTML += crearCardFav(productos))
-    
+    favoritos.forEach((productos) => cardFav.innerHTML += crearCardFav(productos))
+
 }
 
 //Carrito
 
 function almacenarProductosLocalStorageCarrito() {
     localStorage.setItem("localCarrito", JSON.stringify(carrito));
-    }
-
-function traerProductosLocalStorageCarrito(){
-    let storeListcarrito = localStorage.getItem("localCarrito")
-    if(storeListcarrito == null){
-        localCarrito = []
-
-    }else{
-        carrito = JSON.parse(storeListcarrito)
-    }
 }
 
-function removerProductoLocalStorageCarrito(){
+function traerProductosLocalStorageCarrito() {
+    let storeListcarrito = localStorage.getItem("localCarrito")
+    storeListcarrito == null ? localCarrito = [] : carrito = JSON.parse(storeListcarrito)
+}
+
+function removerProductoLocalStorageCarrito() {
     localStorage.removeItem("localCarrito")
 }
 
-function pintarCarrito(){
+function pintarCarrito() {
     let cardCar = document.querySelector("#carrito");
-    carrito.forEach((productos)=>cardCar.innerHTML += crearCardCarrito(productos))
-    
+    carrito.forEach((productos) => cardCar.innerHTML += crearCardCarrito(productos))
+
 }
 
-function inciarLocalStorage(){
+function inciarLocalStorage() {
     traerProductosLocalStorage()
     contadorFavoritos()
     pintarFavoritos()
 }
 
-function iniciarLocalStorageCarrito(){
+function iniciarLocalStorageCarrito() {
     traerProductosLocalStorageCarrito()
     contadorCarrito()
     pintarCarrito()
